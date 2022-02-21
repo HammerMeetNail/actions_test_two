@@ -22,9 +22,10 @@ jobs:
     name: "Trigger actions_test workflow"
     runs-on: ubuntu-latest
     steps:
+      - env:
+          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
       - uses: actions/github-script@v6
         with:
-          github-token: ${{ secrets.PAT_TOKEN }}
           script: |
             await github.rest.actions.createWorkflowDispatch({
               owner: 'HammerMeetNail',
