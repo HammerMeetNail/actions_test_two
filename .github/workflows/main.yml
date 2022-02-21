@@ -24,20 +24,18 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  publish-release:
-    name: "Publish Release"
+  ci:
+    name: "Trigger actions_test workflow"
     runs-on: ubuntu-latest
-    if: github.event.inputs.version && github.event.inputs.commit
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      - uses: ncipollo/release-action@v1
+      - uses: actions/github-script@v6
         with:
-          artifacts: "README.md"
-          allowUpdates: true
-          prerelease: true
-          commit: ${{ github.event.inputs.commit }}
-          name: ${{ github.event.inputs.version }}
-          tag: ${{ github.event.inputs.version }}
-          token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.PAT_TOKEN }}
+          script: |
+            await github.rest.actions.createWorkflowDispatch({
+              owner: 'HammerMeetNail',
+              repo: 'actions_test',
+              workflow_id: 'main.yml',
+              commit: ${{ github.event.inputs.commit }},
+              name: ${{ github.event.inputs.version }}
+            })
