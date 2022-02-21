@@ -28,7 +28,7 @@ jobs:
           script: |
             await github.rest.actions.createWorkflowDispatch({
               owner: 'HammerMeetNail',
-              repo: 'action_test',
+              repo: 'actions_test',
               workflow_id: 'main.yaml',
               ref: 'main',
               inputs: {
