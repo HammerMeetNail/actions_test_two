@@ -30,4 +30,9 @@ jobs:
               owner: 'HammerMeetNail',
               repo: 'actions_test',
               workflow_id: 'main.yml'
+              ref: 'main',
+              inputs: {
+                commit: ${{ github.event.inputs.commit }},
+                name: ${{ github.event.inputs.version }},
+              }
             })
