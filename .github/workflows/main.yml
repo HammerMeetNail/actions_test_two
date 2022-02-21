@@ -28,11 +28,11 @@ jobs:
           script: |
             await github.rest.actions.createWorkflowDispatch({
               owner: 'HammerMeetNail',
-              repo: 'actions_test',
-              workflow_id: 'main.yml'
+              repo: 'action_test',
+              workflow_id: 'workflows/main.yaml',
               ref: 'main',
               inputs: {
-                commit: ${{ github.event.inputs.commit }},
-                name: ${{ github.event.inputs.version }},
-              }
+                commit: '${{ github.event.inputs.commit }}',
+                name: '${{ github.event.inputs.version }}',
+              },
             })
